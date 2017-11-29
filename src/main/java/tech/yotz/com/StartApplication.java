@@ -53,7 +53,7 @@ public class StartApplication {
         return new ApiInfoBuilder()
             .title("Yotz Start API's")
             .description("Exposição de serviços")
-            .contact(new Contact("Yotz Start", "https://www.yotz.tech/", "falacomigo@yotz.tech"))
+            .contact(new Contact("Yotz Start", "https://www.yotz.tech/", "team@yotz.tech"))
             .version("1.0.0")
             .build();
     }
