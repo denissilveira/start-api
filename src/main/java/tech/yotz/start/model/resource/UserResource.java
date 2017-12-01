@@ -3,6 +3,10 @@ package tech.yotz.start.model.resource;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class UserResource {
 	
 	private String id;
@@ -13,6 +17,7 @@ public class UserResource {
 	private Date created;
 	private boolean active;
 	private List<String> roles;
+	private Date lastPasswordResetDate;
 	
 	public String getId() {
 		return id;
@@ -61,6 +66,12 @@ public class UserResource {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public Date getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
 
 }

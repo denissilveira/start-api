@@ -41,13 +41,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResource registration(final UserResource userModel) throws Exception {
+		
 		try {
+			
 			userModel.setActive(true);
 			userModel.setCreated(new Date());
+			userModel.setLastPasswordResetDate(new Date());
 			userModel.setRoles(Collections.singletonList(RolesEnum.USER.name()));
 			userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
 			final User user = userRepository.save(UserMapper.parse(userModel));
-			
 			if(user == null)
 				throw new Exception("Erro ao cadastrar usuario");
 			
@@ -82,6 +84,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		final User user = (User) loadUserByUsername(username);
+		user.setLastPasswordResetDate(new Date());
 		user.setPassword(bCryptPasswordEncoder.encode(newPassword));
 		userRepository.save(user);
 	}

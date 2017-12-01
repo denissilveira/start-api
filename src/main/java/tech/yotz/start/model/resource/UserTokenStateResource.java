@@ -1,23 +1,27 @@
 package tech.yotz.start.model.resource;
 
-/**
- * Created by fan.jin on 2016-10-17.
- */
 public class UserTokenStateResource {
+	
     private String access_token;
-    private Long expires_in;
+    private int expires_in;
+    private UserResource userResource;
 
     public UserTokenStateResource() {
-        this.access_token = null;
-        this.expires_in = null;
     }
 
-    public UserTokenStateResource(String access_token, long expires_in) {
-        this.access_token = access_token;
-        this.expires_in = expires_in;
-    }
+    public UserTokenStateResource(String access_token, int expiresIn, UserResource userResource) {
+		this.access_token = access_token;
+		this.expires_in = expiresIn;
+		this.userResource = userResource;
+	}
 
-    public String getAccess_token() {
+	public UserResource getUserResource() {
+		return userResource;
+	}
+	public void setUserResource(UserResource userResource) {
+		this.userResource = userResource;
+	}
+	public String getAccess_token() {
         return access_token;
     }
 
@@ -25,11 +29,11 @@ public class UserTokenStateResource {
         this.access_token = access_token;
     }
 
-    public Long getExpires_in() {
+    public int getExpires_in() {
         return expires_in;
     }
 
-    public void setExpires_in(Long expires_in) {
+    public void setExpires_in(int expires_in) {
         this.expires_in = expires_in;
     }
 }

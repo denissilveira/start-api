@@ -55,16 +55,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         List<RequestMatcher> csrfMethods = new ArrayList<>();
         Arrays.asList("POST", "PUT", "PATCH", "DELETE").forEach( method -> csrfMethods.add( new AntPathRequestMatcher( "/**", method ) ) );
-        http
+        http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
                 .exceptionHandling().authenticationEntryPoint( restAuthenticationEntryPoint ).and()
                 .authorizeRequests()
-                .antMatchers( HttpMethod.GET,"/").permitAll()
                 .antMatchers("/**/auth/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class);
-
-        http.csrf().disable();
     }
 
 
