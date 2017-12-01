@@ -6,6 +6,8 @@ spring:
       password: ActAF00l
       port: 27017
       database: Start
+  jackson:
+    serialization-inclusion=NON_NULL
 
 server:
   context-path: /start
