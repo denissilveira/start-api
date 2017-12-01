@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResource registration(final UserResource userModel) throws Exception {
-		
 		try {
 			
 			userModel.setActive(true);

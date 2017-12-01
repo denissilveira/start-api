@@ -26,8 +26,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan({"tech.yotz.start"})
-@EnableConfigurationProperties
 @EnableCaching
+@EnableConfigurationProperties
 public class StartApplication {
 
 	public static void main(String[] args) {
