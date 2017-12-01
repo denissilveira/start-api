@@ -16,7 +16,7 @@ import org.springframework.util.CollectionUtils;
 @SuppressWarnings("serial")
 @Document(collection = "user")
 public class User implements UserDetails {
-	
+
 	@Id
 	private String id;
 	@Indexed(unique = true)
