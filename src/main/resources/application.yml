@@ -24,6 +24,12 @@ app:
   
 jwt:
   header: Authorization
+<<<<<<< HEAD
   expires_in: 30000 # 5 minutes
   mobile_expires_in: 60000 # 10 minutes
   secret: josesilva
+=======
+  expires_in: 300 # 5 minutes
+  mobile_expires_in: 600 # 10 minutes
+  secret: josesilva
+>>>>>>> Criação das classes Repository, Resource, Mapper, Service e ServiceImpl
