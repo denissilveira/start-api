@@ -2,6 +2,7 @@ package tech.yotz.start;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,8 +25,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan({"tech.yotz.com"})
+@ComponentScan({"tech.yotz.start"})
 @EnableCaching
+@EnableConfigurationProperties
 public class StartApplication {
 
 	public static void main(String[] args) {
