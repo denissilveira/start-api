@@ -11,10 +11,7 @@ public class UserMapper {
 			return null;
 		
 		final UserResource userResource = new UserResource();
-		userResource.setActive(user.isActive());
-		userResource.setCreated(user.getCreated());
 		userResource.setId(user.getId());
-		userResource.setPassword(user.getPassword());
 		userResource.setPhoto(user.getPhoto());
 		userResource.setRoles(user.getRoles());
 		userResource.setUsername(user.getUsername());
@@ -36,6 +33,7 @@ public class UserMapper {
 		user.setRoles(userResource.getRoles());
 		user.setUsername(userResource.getUsername());
 		user.setName(userResource.getName());
+		user.setLastPasswordResetDate(userResource.getLastPasswordResetDate());
 		return user;
 	}
 
