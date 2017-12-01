@@ -1,7 +1,8 @@
-package tech.yotz.com;
+package tech.yotz.start;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -24,6 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan({"tech.yotz.com"})
+@EnableCaching
 public class StartApplication {
 
 	public static void main(String[] args) {

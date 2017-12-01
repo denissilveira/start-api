@@ -1,4 +1,4 @@
-package tech.yotz.com.web.service.v1;
+package tech.yotz.start.web.service.v1;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

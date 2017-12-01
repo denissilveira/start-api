@@ -1,4 +1,4 @@
-package tech.yotz.com;
+package tech.yotz.start;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
