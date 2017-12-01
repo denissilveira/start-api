@@ -1,24 +1,15 @@
-package tech.yotz.start.model.entity;
+package tech.yotz.start.model.resource;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "project")
-public class Project {
+public class ProjectResource {
 	
-	@Id
 	private String id;
 	private String title;
 	private String description;
 	private String profile;
-	@DBRef
-	private List<Knowledge> knowledges;
+	private List<KnowledgeResource> knowledges;
 	private String url;
-	@DBRef
-	private Startup startup;
 	
 	public String getId() {
 		return id;
@@ -44,10 +35,10 @@ public class Project {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	public List<Knowledge> getKnowledges() {
+	public List<KnowledgeResource> getKnowledges() {
 		return knowledges;
 	}
-	public void setKnowledges(List<Knowledge> knowledges) {
+	public void setKnowledges(List<KnowledgeResource> knowledges) {
 		this.knowledges = knowledges;
 	}
 	public String getUrl() {
@@ -56,11 +47,5 @@ public class Project {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public Startup getStartup() {
-		return startup;
-	}
-	public void setStartup(Startup startup) {
-		this.startup = startup;
-	}
-	
+
 }
