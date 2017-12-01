@@ -33,4 +33,5 @@ public class UserTokenStateResource {
 	public void setUserResource(UserResource userResource) {
 		this.userResource = userResource;
 	}
+
 }
