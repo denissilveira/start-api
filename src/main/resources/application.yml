@@ -6,8 +6,6 @@ spring:
       password: ActAF00l
       port: 27017
       database: Start
-  jackson:
-    serialization-inclusion=NON_NULL
 
 server:
   context-path: /start
@@ -18,3 +16,12 @@ swagger:
   pathRegex: /v1/*.*
   title: Start API
   version: 1.0.0
+
+app:
+  name: start
+  
+jwt:
+  header: Authorization
+  expires_in: 30000 # 5 minutes
+  mobile_expires_in: 60000 # 10 minutes
+  secret: josesilva
