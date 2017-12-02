@@ -75,6 +75,7 @@ public class User implements UserDetails {
 	public Date getLastPasswordResetDate() {
 		return lastPasswordResetDate;
 	}
+
 	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
 		this.lastPasswordResetDate = lastPasswordResetDate;
 	}

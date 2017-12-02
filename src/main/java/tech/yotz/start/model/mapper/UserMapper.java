@@ -11,6 +11,7 @@ public class UserMapper {
 			return null;
 		
 		final UserResource userResource = new UserResource();
+		userResource.setId(user.getId());
 		userResource.setPhoto(user.getPhoto());
 		userResource.setRoles(user.getRoles());
 		userResource.setUsername(user.getUsername());
