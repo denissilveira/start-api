@@ -36,7 +36,7 @@ import tech.yotz.start.service.UserService;
 public class AuthenticationController {
 
 	@Autowired
-	TokenHelper tokenHelper;
+	private TokenHelper tokenHelper;
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired

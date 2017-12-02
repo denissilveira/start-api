@@ -1,46 +1,51 @@
 package tech.yotz.start.model.mapper;
 
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import tech.yotz.start.model.entity.Knowledge;
 import tech.yotz.start.model.entity.Partner;
-import tech.yotz.start.model.resource.KnowledgeResource;
 import tech.yotz.start.model.resource.PartnerResource;
+import tech.yotz.start.service.CityService;
 
+@Component
 public class PartnerMapper {
-	public final static Partner parse(PartnerResource partnerResource) {
-		Partner partner = null;
-		if (partnerResource != null) {
-			partner = new Partner();
-			partner.setId(partnerResource.getId());
-			partner.setDescription(partnerResource.getDescription());
-			partner.setCity(CityMapper.parse(partnerResource.getCityResource()));
-			partner.setKnowledges(new ArrayList<>());
-			for (KnowledgeResource knowledgeResource : partnerResource.getKnowledges()) {
-				partner.getKnowledges().add(KnowledgeMapper.parse(knowledgeResource));
-			}
-			partner.setName(partnerResource.getName());
-			partner.setUrlLinkedIn(partnerResource.getUrlLinkedIn());
-			partner.setUser(null); //TODO userMapper
-		}
+	
+	@Autowired
+	private CityService cityService;
+	@Autowired
+	private KnowledgeMapper knowledgeMapper;
+	
+	public final Partner parse(final PartnerResource partnerResource) {
+		
+		if (partnerResource == null) 
+			return null;
+		
+		Partner partner = new Partner();
+		partner.setId(partnerResource.getId());
+		partner.setDescription(partnerResource.getDescription());
+		partner.setCity(cityService.findByDescription(partnerResource.getCity()));
+		partner.setKnowledges(knowledgeMapper.parseList(partnerResource.getKnowledges()));
+		partner.setName(partnerResource.getName());
+		partner.setUrlLinkedIn(partnerResource.getUrlLinkedIn());
+		partner.setUser(UserMapper.parse(partnerResource.getUserResource()));
 		return partner;
 	}
 	
-	public final static PartnerResource parse(Partner partner) {
-		PartnerResource partnerResource = null;
-		if (partner != null) {
-			partnerResource = new PartnerResource();
-			partnerResource.setId(partner.getId());
-			partnerResource.setDescription(partner.getDescription());
-			partnerResource.setCityResource(CityMapper.parse(partner.getCity()));
-			partnerResource.setKnowledges(new ArrayList<>());
-			for (Knowledge knowledge : partner.getKnowledges()) {
-				partnerResource.getKnowledges().add(KnowledgeMapper.parse(knowledge));
-			}
-			partnerResource.setName(partner.getName());
-			partnerResource.setUrlLinkedIn(partner.getUrlLinkedIn());
-			partnerResource.setUserResource(null); //TODO userMapper
+	public final PartnerResource parse(final Partner partner) {
+		
+		if(partner == null)
+			return null;
+			
+		final PartnerResource partnerResource = new PartnerResource();
+		partnerResource.setId(partner.getId());
+		partnerResource.setDescription(partner.getDescription());
+		if(partner.getCity() != null) {
+			partnerResource.setCity(partner.getCity().getDescription());
 		}
+		partnerResource.setKnowledges(knowledgeMapper.parseResources(partner.getKnowledges()));
+		partnerResource.setName(partner.getName());
+		partnerResource.setUrlLinkedIn(partner.getUrlLinkedIn());
+		partnerResource.setUserResource(UserMapper.parse(partner.getUser())); 
 		return partnerResource;
 	}
 }

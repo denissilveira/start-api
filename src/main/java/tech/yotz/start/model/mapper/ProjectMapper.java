@@ -18,9 +18,9 @@ public class ProjectMapper {
 			project.setTitle(projectResource.getTitle());
 			project.setUrl(projectResource.getUrl());
 			project.setKnowledges(new ArrayList<>());
-			for (KnowledgeResource knowledgeResource : projectResource.getKnowledges()) {
+			/*for (KnowledgeResource knowledgeResource : projectResource.getKnowledges()) {
 				project.getKnowledges().add(KnowledgeMapper.parse(knowledgeResource));
-			}
+			}*/
 		}
 		return project;
 	}
@@ -35,9 +35,9 @@ public class ProjectMapper {
 			projectResource.setTitle(project.getTitle());
 			projectResource.setUrl(project.getUrl());
 			projectResource.setKnowledges(new ArrayList<>());
-			for (Knowledge knowledge : project.getKnowledges()) {
+			/*for (Knowledge knowledge : project.getKnowledges()) {
 				projectResource.getKnowledges().add(KnowledgeMapper.parse(knowledge));
-			}
+			}*/
 		}
 		return projectResource;
 	}

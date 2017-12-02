@@ -1,5 +1,8 @@
 package tech.yotz.start.service;
 
-public interface CityService {
+import tech.yotz.start.model.entity.City;
 
+public interface CityService {
+	
+	City findByDescription(final String description);
 }

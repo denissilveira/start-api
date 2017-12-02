@@ -5,5 +5,8 @@ import java.util.List;
 import tech.yotz.start.model.entity.Knowledge;
 
 public interface KnowledgeService {
+	
 	List<Knowledge> getAll();
+	
+	Knowledge findById(final String id);
 }

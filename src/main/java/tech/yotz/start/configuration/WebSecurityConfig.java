@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
                 .exceptionHandling().authenticationEntryPoint( restAuthenticationEntryPoint ).and()
                 .authorizeRequests()
-                .antMatchers("/**/auth/**").permitAll()
+                .antMatchers("/**/auth/**", "**/register/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class);
     }
@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-    	web.ignoring().antMatchers(HttpMethod.POST, "/**/auth/login", "/**/auth/register");
+    	web.ignoring().antMatchers(HttpMethod.POST, "/**/auth/login", "/**/auth/register", "/**/partners/register");
         web.ignoring().antMatchers(HttpMethod.GET, "/");
     }
     

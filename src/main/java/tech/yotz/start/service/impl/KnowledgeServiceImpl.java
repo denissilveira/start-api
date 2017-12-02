@@ -9,7 +9,7 @@ import tech.yotz.start.model.entity.Knowledge;
 import tech.yotz.start.repository.KnowledgeRepository;
 import tech.yotz.start.service.KnowledgeService;
 
-@Service
+@Service("knowledgeService")
 public class KnowledgeServiceImpl implements KnowledgeService {
 	
 	@Autowired
@@ -17,5 +17,10 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 	
 	public List<Knowledge> getAll() {
 		return knowledgeRepository.findAll();
+	}
+
+	@Override
+	public Knowledge findById(final String id) {
+		return knowledgeRepository.findOne(id);
 	}
 }
