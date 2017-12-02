@@ -5,7 +5,7 @@ public class StartupResource {
 	private String id;
 	private String name;
 	private String company;
-	private CityResource city;
+	private String city;
 	private UserResource user;
 	
 	public String getId() {
@@ -26,10 +26,10 @@ public class StartupResource {
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public CityResource getCity() {
+	public String getCity() {
 		return city;
 	}
-	public void setCity(CityResource city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 	public UserResource getUser() {

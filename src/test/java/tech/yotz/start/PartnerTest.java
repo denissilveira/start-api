@@ -4,14 +4,31 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import tech.yotz.start.model.entity.Startup;
 import tech.yotz.start.model.enums.RolesEnum;
 import tech.yotz.start.model.resource.PartnerResource;
+import tech.yotz.start.model.resource.StartupResource;
 import tech.yotz.start.model.resource.UserResource;
 
 public class PartnerTest {
 	
 	public static void main(String[] args) {
 		
+		final StartupResource resource = new StartupResource();
+		resource.setCity("5a232b28103c16a4525fae6e");
+		resource.setCompany("Yotz Tech");
+		resource.setName("Yotz Start");
+		
+		final UserResource user = new UserResource();
+		user.setActive(true);
+		user.setName("Startup loka");
+		user.setPassword("teste123");
+		user.setUsername("startup@email.com");
+		user.setRoles(new ArrayList<>());
+		user.getRoles().add(RolesEnum.PARTNER.getCode());
+		resource.setUser(user);
+		
+		/*
 		final PartnerResource resource = new PartnerResource();
 		resource.setCity("5a232b28103c16a4525fae6e");
 		resource.setDescription("Parceria de teste");
@@ -28,7 +45,7 @@ public class PartnerTest {
 		user.setRoles(new ArrayList<>());
 		user.getRoles().add(RolesEnum.PARTNER.getCode());
 		resource.setUserResource(user);
-		
+	*/	
 		System.out.println(new Gson().toJson(resource));
 	}
 
