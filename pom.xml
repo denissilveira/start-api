@@ -131,15 +131,35 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- <plugin> <groupId>com.spotify</groupId> <artifactId>docker-maven-plugin</artifactId> 
-				<version>0.4.13</version> <executions> <execution> <phase>package</phase> 
-				<goals> <goal>build</goal> </goals> </execution> </executions> <configuration> 
-				<imageName>start</imageName> <dockerDirectory>src/main/docker</dockerDirectory> 
-				<dockerHost>tcp://192.168.99.100:2376</dockerHost> <resources> <resource> 
-				<targetPath>/</targetPath> <directory>${project.build.directory}</directory> 
-				<include>${project.build.finalName}.jar</include> </resource> </resources> 
-				<imageTags> <imageTag>${project.version}</imageTag> <imageTag>latest</imageTag> 
-				</imageTags> </configuration> </plugin> -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<imageName>start</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<dockerHost>tcp://192.168.99.100:2376</dockerHost>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+						<imageTag>latest</imageTag>
+					</imageTags>
+				</configuration>
+			</plugin>
 
 		</plugins>
 	</build>

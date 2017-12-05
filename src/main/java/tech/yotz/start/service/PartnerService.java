@@ -1,8 +1,11 @@
 package tech.yotz.start.service;
 
+import org.springframework.mobile.device.Device;
+
 import tech.yotz.start.model.resource.PartnerResource;
+import tech.yotz.start.model.resource.UserTokenStateResource;
 
 public interface PartnerService {
 	
-	PartnerResource save(final PartnerResource resource) throws Exception;
+	UserTokenStateResource save(final PartnerResource resource, final Device device) throws Exception;
 }
