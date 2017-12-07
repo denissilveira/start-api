@@ -3,6 +3,7 @@ package tech.yotz.start.web.service.v1;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import tech.yotz.start.exceptions.RegistredUserException;
 import tech.yotz.start.model.resource.PartnerResource;
 import tech.yotz.start.model.resource.UserTokenStateResource;
 import tech.yotz.start.service.PartnerService;
@@ -31,7 +31,7 @@ public class PartnerController {
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 409, message = "Conflict"),
             @ApiResponse(code = 201, message = "Created", response = UserTokenStateResource.class)}) 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(path="/register", method = RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody final PartnerResource partnerResource, 
 			final HttpServletResponse response, final Device device) {
 		
@@ -42,10 +42,10 @@ public class PartnerController {
 			} else {
 				return new ResponseEntity<UserTokenStateResource>(userTokenStateResource, HttpStatus.CREATED);
 			}
-		} catch (RegistredUserException e) {
+		} catch (DuplicateKeyException e) {
 			return new ResponseEntity<UserTokenStateResource>(HttpStatus.CONFLICT);
 		} catch (Exception e) {
-			return new ResponseEntity<UserTokenStateResource>(HttpStatus.EXPECTATION_FAILED);
+			return new ResponseEntity<UserTokenStateResource>(HttpStatus.CONFLICT);
 		}
 		
 	}

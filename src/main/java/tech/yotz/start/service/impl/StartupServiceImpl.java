@@ -1,10 +1,10 @@
 package tech.yotz.start.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Service;
 
-import tech.yotz.start.exceptions.RegistredUserException;
 import tech.yotz.start.model.mapper.StartupMapper;
 import tech.yotz.start.model.resource.StartupResource;
 import tech.yotz.start.model.resource.UserResource;
@@ -27,22 +27,13 @@ public class StartupServiceImpl implements StartupService {
 	private AuthenticationService authenticationService;
 
 	@Override
-	public UserTokenStateResource save(final StartupResource resource, final Device device) throws RegistredUserException, Exception {
+	public UserTokenStateResource save(final StartupResource resource, final Device device) throws DuplicateKeyException, Exception {
 		
-		try {
-			
-			final UserResource userRegistred = userService.findByUsernameAndRoles(resource.getUser().getUsername(), resource.getUser().getRoles());
-			if(userRegistred != null)
-				throw new RegistredUserException();
-			
-			final String pass = resource.getUser().getPassword();
-			final UserResource user = userService.registration(resource.getUser());
-			resource.setUser(user);
-			startupRepository.save(mapper.parse(resource));
-			final UserTokenStateResource userTokenStateResource = authenticationService.authenticate(resource.getUser().getUsername(), pass, device);
-			return userTokenStateResource;
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
+		final String pass = resource.getUser().getPassword();
+		final UserResource user = userService.registration(resource.getUser());
+		resource.setUser(user);
+		startupRepository.save(mapper.parse(resource));
+		final UserTokenStateResource userTokenStateResource = authenticationService.authenticate(resource.getUser().getUsername(), pass, device);
+		return userTokenStateResource;
 	}
 }

@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Service;
 
-import tech.yotz.start.exceptions.RegistredUserException;
+import com.mongodb.DuplicateKeyException;
+
 import tech.yotz.start.model.mapper.PartnerMapper;
 import tech.yotz.start.model.resource.PartnerResource;
 import tech.yotz.start.model.resource.UserResource;
@@ -27,22 +28,12 @@ public class PartnerServiceImpl implements PartnerService {
 	private AuthenticationService authenticationService;
 	
 	@Override
-	public UserTokenStateResource save(final PartnerResource resource, final Device device) throws RegistredUserException, Exception {
-		
-		try {
-			
-			final UserResource userRegistred = userService.findByUsernameAndRoles(resource.getUserResource().getUsername(), resource.getUserResource().getRoles());
-			if(userRegistred != null)
-				throw new RegistredUserException();
-			
-			final String pass = resource.getUserResource().getPassword();
-			final UserResource user = userService.registration(resource.getUserResource());
-			resource.setUserResource(user);
-			partnerRepository.save(mapper.parse(resource));
-			final UserTokenStateResource userTokenStateResource = authenticationService.authenticate(resource.getUserResource().getUsername(), pass, device);
-			return userTokenStateResource;
-		} catch (Exception e) {
-			throw new Exception(e);
-		}
+	public UserTokenStateResource save(final PartnerResource resource, final Device device) throws DuplicateKeyException, Exception {
+		final String pass = resource.getUserResource().getPassword();
+		final UserResource user = userService.registration(resource.getUserResource());
+		resource.setUserResource(user);
+		partnerRepository.save(mapper.parse(resource));
+		final UserTokenStateResource userTokenStateResource = authenticationService.authenticate(resource.getUserResource().getUsername(), pass, device);
+		return userTokenStateResource;
 	}
 }

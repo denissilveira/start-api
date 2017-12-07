@@ -2,14 +2,14 @@ package tech.yotz.start.service;
 
 import java.util.List;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import tech.yotz.start.exceptions.RegistredUserException;
 import tech.yotz.start.model.resource.UserResource;
 
 public interface UserService extends UserDetailsService {
 	
-	UserResource registration(final UserResource userModel) throws RegistredUserException, Exception;
+	UserResource registration(final UserResource userModel) throws DuplicateKeyException, Exception;
 	
 	void autologin(final String username, final String password);
 	

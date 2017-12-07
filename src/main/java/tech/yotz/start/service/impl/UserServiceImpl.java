@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,7 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import tech.yotz.start.exceptions.RegistredUserException;
 import tech.yotz.start.model.entity.User;
 import tech.yotz.start.model.enums.RolesEnum;
 import tech.yotz.start.model.mapper.UserMapper;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResource registration(final UserResource userModel) throws RegistredUserException, Exception {
+	public UserResource registration(final UserResource userModel) throws DuplicateKeyException, Exception {
 		
 		try {
 			
