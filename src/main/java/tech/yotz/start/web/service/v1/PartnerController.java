@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import tech.yotz.start.exceptions.RegistredUserException;
 import tech.yotz.start.model.resource.PartnerResource;
 import tech.yotz.start.model.resource.UserTokenStateResource;
 import tech.yotz.start.service.PartnerService;
@@ -28,17 +29,25 @@ public class PartnerController {
 	@ApiResponses(value = { 
             @ApiResponse(code = 417, message = "Expectation Failed"),
             @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 409, message = "Conflict"),
             @ApiResponse(code = 201, message = "Created", response = UserTokenStateResource.class)}) 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody final PartnerResource partnerResource, 
-			final HttpServletResponse response, final Device device) throws Exception {
+			final HttpServletResponse response, final Device device) {
 		
-		final UserTokenStateResource userTokenStateResource = partnerService.save(partnerResource, device);
-		if(userTokenStateResource == null ) {
+		try {
+			final UserTokenStateResource userTokenStateResource = partnerService.save(partnerResource, device);
+			if(userTokenStateResource == null ) {
+				return new ResponseEntity<UserTokenStateResource>(HttpStatus.EXPECTATION_FAILED);
+			} else {
+				return new ResponseEntity<UserTokenStateResource>(userTokenStateResource, HttpStatus.CREATED);
+			}
+		} catch (RegistredUserException e) {
+			return new ResponseEntity<UserTokenStateResource>(HttpStatus.CONFLICT);
+		} catch (Exception e) {
 			return new ResponseEntity<UserTokenStateResource>(HttpStatus.EXPECTATION_FAILED);
-		} else {
-			return new ResponseEntity<UserTokenStateResource>(userTokenStateResource, HttpStatus.CREATED);
 		}
+		
 	}
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Service;
 
+import tech.yotz.start.exceptions.RegistredUserException;
 import tech.yotz.start.model.mapper.StartupMapper;
 import tech.yotz.start.model.resource.StartupResource;
 import tech.yotz.start.model.resource.UserResource;
@@ -26,9 +27,13 @@ public class StartupServiceImpl implements StartupService {
 	private AuthenticationService authenticationService;
 
 	@Override
-	public UserTokenStateResource save(final StartupResource resource, final Device device) throws Exception {
+	public UserTokenStateResource save(final StartupResource resource, final Device device) throws RegistredUserException, Exception {
 		
 		try {
+			
+			final UserResource userRegistred = userService.findByUsernameAndRoles(resource.getUser().getUsername(), resource.getUser().getRoles());
+			if(userRegistred != null)
+				throw new RegistredUserException();
 			
 			final String pass = resource.getUser().getPassword();
 			final UserResource user = userService.registration(resource.getUser());
