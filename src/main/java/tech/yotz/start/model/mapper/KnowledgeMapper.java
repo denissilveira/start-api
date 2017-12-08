@@ -28,13 +28,23 @@ public class KnowledgeMapper {
 		}).collect(Collectors.toList());
 	}
 	
-	public final List<String> parseResources(final List<Knowledge> knowledges) {
+	public final List<String> parseResourcesString(final List<Knowledge> knowledges) {
 		
 		if(CollectionUtils.isEmpty(knowledges))
 			return null;
 		
 		return knowledges.stream().map(knowledge -> {
 			return parseResource(knowledge);
+		}).collect(Collectors.toList());
+	}
+	
+	public final List<KnowledgeResource> parseResources(final List<Knowledge> knowledges) {
+		
+		if(CollectionUtils.isEmpty(knowledges))
+			return null;
+		
+		return knowledges.stream().map(knowledge -> {
+			return parse(knowledge);
 		}).collect(Collectors.toList());
 	}
 	

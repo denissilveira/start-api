@@ -42,7 +42,7 @@ public class PartnerMapper {
 		if(partner.getCity() != null) {
 			partnerResource.setCity(partner.getCity().getDescription());
 		}
-		partnerResource.setKnowledges(knowledgeMapper.parseResources(partner.getKnowledges()));
+		partnerResource.setKnowledges(knowledgeMapper.parseResourcesString(partner.getKnowledges()));
 		partnerResource.setName(partner.getName());
 		partnerResource.setUrlLinkedIn(partner.getUrlLinkedIn());
 		partnerResource.setUserResource(UserMapper.parse(partner.getUser())); 

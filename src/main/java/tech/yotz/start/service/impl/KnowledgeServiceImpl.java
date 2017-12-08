@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tech.yotz.start.model.entity.Knowledge;
+import tech.yotz.start.model.mapper.KnowledgeMapper;
+import tech.yotz.start.model.resource.KnowledgeResource;
 import tech.yotz.start.repository.KnowledgeRepository;
 import tech.yotz.start.service.KnowledgeService;
 
@@ -13,14 +15,17 @@ import tech.yotz.start.service.KnowledgeService;
 public class KnowledgeServiceImpl implements KnowledgeService {
 	
 	@Autowired
-	private KnowledgeRepository knowledgeRepository;
+	private KnowledgeRepository repository;
+	@Autowired
+	private KnowledgeMapper mapper;
 	
-	public List<Knowledge> getAll() {
-		return knowledgeRepository.findAll();
+	@Override
+	public Knowledge findById(final String id) {
+		return repository.findById(id);
 	}
 
 	@Override
-	public Knowledge findById(final String id) {
-		return knowledgeRepository.findOne(id);
+	public List<KnowledgeResource> findAll() {
+		return mapper.parseResources(repository.findAll());
 	}
 }
