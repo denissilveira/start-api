@@ -84,6 +84,20 @@ public class StartupController {
 	@ApiResponses(value = { 
             @ApiResponse(code = 417, message = "Expectation Failed"),
             @ApiResponse(code = 200, message = "OK", response = StartupResource.class)}) 
+	@RequestMapping(path="/user/{user}",method = RequestMethod.GET)
+	public ResponseEntity<StartupResource> findByUser(@PathVariable final String user) {
+		
+		try {
+			final StartupResource startups = startupService.findByUser(user);
+			return new ResponseEntity<StartupResource>(startups, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<StartupResource>(HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+	
+	@ApiResponses(value = { 
+            @ApiResponse(code = 417, message = "Expectation Failed"),
+            @ApiResponse(code = 200, message = "OK", response = StartupResource.class)}) 
 	@RequestMapping(path="/city/{city}",method = RequestMethod.GET)
 	public ResponseEntity<List<StartupResource>> findByCity(@PathVariable final String city) {
 		

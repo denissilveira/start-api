@@ -17,4 +17,6 @@ public interface UserService extends UserDetailsService {
 	
 	UserResource findByUsernameAndRoles(final String username, final List<String> roles);
 	
+	UserResource findById(final String id);
+	
 }

@@ -101,4 +101,9 @@ public class UserServiceImpl implements UserService {
 	public UserResource findByUsernameAndRoles(final String username, final List<String> roles) {
 		return UserMapper.parse(userRepository.findByUsernameAndRoles(username, roles));
 	}
+
+	@Override
+	public UserResource findById(final String id) {
+		return UserMapper.parse(userRepository.findOne(id));
+	}
 }

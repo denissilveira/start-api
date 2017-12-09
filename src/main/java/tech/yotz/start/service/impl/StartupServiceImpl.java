@@ -8,7 +8,9 @@ import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Service;
 
 import tech.yotz.start.model.entity.City;
+import tech.yotz.start.model.entity.User;
 import tech.yotz.start.model.mapper.StartupMapper;
+import tech.yotz.start.model.mapper.UserMapper;
 import tech.yotz.start.model.resource.StartupResource;
 import tech.yotz.start.model.resource.UserResource;
 import tech.yotz.start.model.resource.UserTokenStateResource;
@@ -59,5 +61,13 @@ public class StartupServiceImpl implements StartupService {
 	@Override
 	public StartupResource findById(final String id) {
 		return mapper.parse(startupRepository.findOne(id));
+	}
+
+	@Override
+	public StartupResource findByUser(final String userId) {
+		final User user = UserMapper.parse(userService.findById(userId));
+		if(user == null)
+			return null;
+		return mapper.parse(startupRepository.findByUser(user));
 	}
 }

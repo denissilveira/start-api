@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.mongodb.DuplicateKeyException;
 
+import tech.yotz.start.model.entity.User;
 import tech.yotz.start.model.mapper.PartnerMapper;
+import tech.yotz.start.model.mapper.UserMapper;
 import tech.yotz.start.model.resource.PartnerResource;
 import tech.yotz.start.model.resource.UserResource;
 import tech.yotz.start.model.resource.UserTokenStateResource;
@@ -35,5 +37,18 @@ public class PartnerServiceImpl implements PartnerService {
 		partnerRepository.save(mapper.parse(resource));
 		final UserTokenStateResource userTokenStateResource = authenticationService.authenticate(resource.getUserResource().getUsername(), pass, device);
 		return userTokenStateResource;
+	}
+
+	@Override
+	public PartnerResource findByUser(final String userId) {
+		final User user = UserMapper.parse(userService.findById(userId));
+		if(user == null)
+			return null;
+		return mapper.parse(partnerRepository.findByUser(user));
+	}
+
+	@Override
+	public PartnerResource findById(final String id) {
+		return mapper.parse(partnerRepository.findOne(id));
 	}
 }

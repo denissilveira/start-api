@@ -17,5 +17,7 @@ public interface StartupService {
 	List<StartupResource> findByCity(final String city);
 	
 	StartupResource findById(final String id);
+	
+	StartupResource findByUser(final String user);
 
 }

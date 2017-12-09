@@ -9,4 +9,8 @@ import tech.yotz.start.model.resource.UserTokenStateResource;
 public interface PartnerService {
 	
 	UserTokenStateResource save(final PartnerResource resource, final Device device) throws DuplicateKeyException, Exception;
+	
+	PartnerResource findByUser(final String user);
+	
+	PartnerResource findById(final String id);
 }
