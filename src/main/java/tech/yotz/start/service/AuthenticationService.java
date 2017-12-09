@@ -6,6 +6,6 @@ import tech.yotz.start.model.resource.UserTokenStateResource;
 
 public interface AuthenticationService {
 	
-	UserTokenStateResource authenticate(final String username, final String password, final Device device);
+	UserTokenStateResource authenticate(final String username, final String password, final Device device) throws Exception;
 
 }

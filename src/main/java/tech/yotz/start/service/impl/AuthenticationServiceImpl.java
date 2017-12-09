@@ -3,6 +3,8 @@ package tech.yotz.start.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,16 +26,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	private AuthenticationManager authenticationManager;
 
 	@Override
-	public UserTokenStateResource authenticate(final String username, final String password, final Device device) {
-		final Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		User user = (User) authentication.getPrincipal();
-		UserResource userResource = UserMapper.parse(user);
-		String jws = tokenHelper.generateToken(user.getUsername(), device);
-		int expiresIn = tokenHelper.getExpiredIn(device);
-		return new UserTokenStateResource(jws, expiresIn, userResource);
+	public UserTokenStateResource authenticate(final String username, final String password, final Device device) throws Exception {
+		
+		try {
+			final Authentication authentication = authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			User user = (User) authentication.getPrincipal();
+			UserResource userResource = UserMapper.parse(user);
+			String jws = tokenHelper.generateToken(user.getUsername(), device);
+			int expiresIn = tokenHelper.getExpiredIn(device);
+			return new UserTokenStateResource(jws, expiresIn, userResource);
+		} catch (BadCredentialsException | InternalAuthenticationServiceException e) {
+			throw new InternalAuthenticationServiceException(e.getMessage());
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 
 }

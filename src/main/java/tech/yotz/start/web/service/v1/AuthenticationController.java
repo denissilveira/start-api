@@ -1,6 +1,5 @@
 package tech.yotz.start.web.service.v1;
 
-import java.io.IOException;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,15 +46,22 @@ public class AuthenticationController {
             @ApiResponse(code = 202, message = "Accepted", response = UserTokenStateResource.class)}) 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody final AuthenticationResource authenticationRequest,
-			final Device device) throws AuthenticationException, IOException {
-
-		final UserTokenStateResource userTokenStateResource = authenticationService.authenticate(
-				authenticationRequest.getUsername(), authenticationRequest.getPassword(), device);
-		if(userTokenStateResource == null ) {
+			final Device device) {
+		
+		try {
+			final UserTokenStateResource userTokenStateResource = authenticationService.authenticate(
+					authenticationRequest.getUsername(), authenticationRequest.getPassword(), device);
+			if(userTokenStateResource == null ) {
+				return new ResponseEntity<UserTokenStateResource>(HttpStatus.EXPECTATION_FAILED);
+			} else {
+				return new ResponseEntity<UserTokenStateResource>(userTokenStateResource, HttpStatus.ACCEPTED);
+			}
+		} catch (BadCredentialsException | InternalAuthenticationServiceException e) {
+			return new ResponseEntity<UserTokenStateResource>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
 			return new ResponseEntity<UserTokenStateResource>(HttpStatus.EXPECTATION_FAILED);
-		} else {
-			return new ResponseEntity<UserTokenStateResource>(userTokenStateResource, HttpStatus.ACCEPTED);
 		}
+
 	}
 
 	@ApiResponses(value = { 
