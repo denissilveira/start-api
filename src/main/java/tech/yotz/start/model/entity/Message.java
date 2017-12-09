@@ -2,23 +2,18 @@ package tech.yotz.start.model.entity;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "message")
 public class Message {
 	
-	@Id
-	private String id;
+	@DBRef
+	private Chat chat;
 	private String message;
 	private Date date;
+	private String senderMessage;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getMessage() {
 		return message;
 	}
@@ -30,6 +25,18 @@ public class Message {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public String getSenderMessage() {
+		return senderMessage;
+	}
+	public void setSenderMessage(String senderMessage) {
+		this.senderMessage = senderMessage;
+	}
+	public Chat getChat() {
+		return chat;
+	}
+	public void setChat(Chat chat) {
+		this.chat = chat;
 	}
 
 }
