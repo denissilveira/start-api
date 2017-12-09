@@ -4,15 +4,16 @@ import java.util.Date;
 
 public class MessageResource {
 	
-	private String id;
+	private String chatId;
 	private String message;
 	private Date date;
+	private String senderMessage;
 	
-	public String getId() {
-		return id;
+	public String getChatId() {
+		return chatId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setChatId(String chatId) {
+		this.chatId = chatId;
 	}
 	public String getMessage() {
 		return message;
@@ -25,6 +26,12 @@ public class MessageResource {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public String getSenderMessage() {
+		return senderMessage;
+	}
+	public void setSenderMessage(String senderMessage) {
+		this.senderMessage = senderMessage;
 	}
 
 }
