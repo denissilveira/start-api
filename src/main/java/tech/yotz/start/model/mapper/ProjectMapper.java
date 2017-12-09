@@ -2,9 +2,7 @@ package tech.yotz.start.model.mapper;
 
 import java.util.ArrayList;
 
-import tech.yotz.start.model.entity.Knowledge;
 import tech.yotz.start.model.entity.Project;
-import tech.yotz.start.model.resource.KnowledgeResource;
 import tech.yotz.start.model.resource.ProjectResource;
 
 public class ProjectMapper {
@@ -17,6 +15,7 @@ public class ProjectMapper {
 			project.setProfile(projectResource.getProfile());
 			project.setTitle(projectResource.getTitle());
 			project.setUrl(projectResource.getUrl());
+			project.setStatus(projectResource.getStatus());
 			project.setKnowledges(new ArrayList<>());
 			/*for (KnowledgeResource knowledgeResource : projectResource.getKnowledges()) {
 				project.getKnowledges().add(KnowledgeMapper.parse(knowledgeResource));
@@ -34,6 +33,7 @@ public class ProjectMapper {
 			projectResource.setProfile(project.getProfile());
 			projectResource.setTitle(project.getTitle());
 			projectResource.setUrl(project.getUrl());
+			projectResource.setStatus(project.getStatus());
 			projectResource.setKnowledges(new ArrayList<>());
 			/*for (Knowledge knowledge : project.getKnowledges()) {
 				projectResource.getKnowledges().add(KnowledgeMapper.parse(knowledge));

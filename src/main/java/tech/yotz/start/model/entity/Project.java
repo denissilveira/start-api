@@ -19,6 +19,7 @@ public class Project {
 	private String url;
 	@DBRef
 	private Startup startup;
+	private String status;
 	
 	public String getId() {
 		return id;
@@ -61,6 +62,12 @@ public class Project {
 	}
 	public void setStartup(Startup startup) {
 		this.startup = startup;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

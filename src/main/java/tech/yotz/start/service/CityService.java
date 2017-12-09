@@ -9,5 +9,7 @@ public interface CityService {
 	
 	City findByDescription(final String description);
 	
+	City findById(final String id);
+	
 	List<CityResource> findByState(final String state);
 }

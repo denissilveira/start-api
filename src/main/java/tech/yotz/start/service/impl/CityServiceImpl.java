@@ -26,4 +26,9 @@ public class CityServiceImpl implements CityService {
 	public List<CityResource> findByState(final String state) {
 		return CityMapper.parseResources(repository.findByState(state));
 	}
+
+	@Override
+	public City findById(final String id) {
+		return repository.findOne(id);
+	}
 }

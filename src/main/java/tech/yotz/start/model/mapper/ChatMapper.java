@@ -27,13 +27,13 @@ public class ChatMapper {
 		}).collect(Collectors.toList());
 	}
 	
-	public final List<ChatResource> parseResources(final List<Chat> countries) {
+	public final List<ChatResource> parseResources(final List<Chat> chats) {
 		
-		if(CollectionUtils.isEmpty(countries))
+		if(CollectionUtils.isEmpty(chats))
 			return null;
 		
-		return countries.stream().map(country -> {
-			return parse(country);
+		return chats.stream().map(chat -> {
+			return parse(chat);
 		}).collect(Collectors.toList());
 	}
 	

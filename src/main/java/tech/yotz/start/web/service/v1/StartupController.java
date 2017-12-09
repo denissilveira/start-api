@@ -1,5 +1,7 @@
 package tech.yotz.start.web.service.v1;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +51,48 @@ public class StartupController {
 		} catch (Exception e) {
 			return new ResponseEntity<UserTokenStateResource>(HttpStatus.CONFLICT);
 		}
+	}
+	
+	@ApiResponses(value = { 
+            @ApiResponse(code = 417, message = "Expectation Failed"),
+            @ApiResponse(code = 200, message = "OK", response = StartupResource.class)}) 
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<StartupResource>> findAll() {
 		
+		try {
+			final List<StartupResource> startups = startupService.findAll();
+			return new ResponseEntity<List<StartupResource>>(startups, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<StartupResource>>(HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+	
+	@ApiResponses(value = { 
+            @ApiResponse(code = 417, message = "Expectation Failed"),
+            @ApiResponse(code = 200, message = "OK", response = StartupResource.class)}) 
+	@RequestMapping(path="/{id}",method = RequestMethod.GET)
+	public ResponseEntity<StartupResource> findById(@PathVariable final String id) {
+		
+		try {
+			final StartupResource startups = startupService.findById(id);
+			return new ResponseEntity<StartupResource>(startups, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<StartupResource>(HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+	
+	@ApiResponses(value = { 
+            @ApiResponse(code = 417, message = "Expectation Failed"),
+            @ApiResponse(code = 200, message = "OK", response = StartupResource.class)}) 
+	@RequestMapping(path="/city/{city}",method = RequestMethod.GET)
+	public ResponseEntity<List<StartupResource>> findByCity(@PathVariable final String city) {
+		
+		try {
+			final List<StartupResource> startups = startupService.findByCity(city);
+			return new ResponseEntity<List<StartupResource>>(startups, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<List<StartupResource>>(HttpStatus.EXPECTATION_FAILED);
+		}
 	}
 	
 }
